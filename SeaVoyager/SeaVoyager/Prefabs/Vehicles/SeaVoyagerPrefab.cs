@@ -21,11 +21,11 @@ public class SeaVoyagerPrefab
         Info.WithIcon(Plugin.assetBundle.LoadAsset<Sprite>("SeaVoyagerCraftIcon"));
         /**/
         var craftingGadget = prefab.SetRecipe(new Nautilus.Crafting.RecipeData(
-            new Ingredient(TechType.CopperWire),
-            new Ingredient(TechType.Lubricant, 2),
-            new Ingredient(TechType.Floater, 3),
-            new Ingredient(TechType.WiringKit),
-            new Ingredient(TechType.Glass, 5)
+            new Ingredient(TechType.TitaniumIngot, 2),
+            new Ingredient(TechType.Lubricant, 1),
+            new Ingredient(TechType.Floater, 2),
+            new Ingredient(TechType.AdvancedWiringKit, 1),
+            new Ingredient(TechType.Glass, 2)
         ));
 
         craftingGadget
@@ -107,6 +107,9 @@ public class SeaVoyagerPrefab
         worldForces.underwaterGravity = -5f; // Despite it being negative, which would apply downward force, this actually makes it go UP on the y axis.
         worldForces.aboveWaterGravity = 5f; // Counteract the strong upward force
         worldForces.waterDepth = -5f;
+        var changeDepth = prefab.AddComponent<ChangeWaterDepth>();
+        changeDepth.worldForces = worldForces;
+        changeDepth.newDepth = 1;
         // Determines the places the little build bots point their laser beams at.
         var buildBots = prefab.AddComponent<BuildBotBeamPoints>();
         Transform beamPointsParent = Helpers.FindChild(prefab, "BuildBotPoints").transform;
